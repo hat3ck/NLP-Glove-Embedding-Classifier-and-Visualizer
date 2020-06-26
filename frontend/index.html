@@ -1,0 +1,74 @@
+<!Doctype html>
+<title>Example</title>
+<style>
+  * {
+   box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background-image: url("images/gradient.jpg");
+    background-size: cover;
+  }
+  #main {
+    display: flex;
+    /* background-image: url("gradient.jpg"); */
+    min-height: calc(100vh - 40vh);
+  }
+  header{
+  	font-weight:bold;
+    font-size : large;
+  }
+  header, footer {
+    /* background: #CBC8CA; */
+    height: 20vh;
+    text-align: center;
+  }
+  span{
+    display: inline-block;
+  	margin-top:10px;
+  }
+  #right-img{
+  width :50vw;
+    height:60vh;
+  }
+    #left-img{
+  width : 50vw;
+    height:60vh;
+  }
+  #center-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+width : 40vw;
+  height:60vh;
+
+  margin-top: -30vh; /* Half the height */
+margin-left: -20vw;
+
+  border-radius: 20px;
+
+}
+#center-img:hover ,#right-img:hover, #left-img:hover {
+    opacity:0.5;
+  }
+
+</style>
+<body>
+  <header>
+    <span>"Classifying Isis Fanboy Tweets"</span><br/><br/>
+    <span style="font-size:medium;">Please Choose the task to run</span>
+  </header>
+  <div id="main">
+    <a href="ml_page.html">
+    <img id="left-img" src="images/ml.png"/></a>
+    <a href="wordcloud.html">
+    <img id="right-img" src="images/visualization.png"/></a>
+
+  </div>
+  <footer><span>Created by Amir Khaleghi</span><br/>
+
+  </footer>
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!Doctype html>
+<title>Machine Learning</title>
+<meta charset="utf-8">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery-1.9.1.min.js"></script>
+<script src="ml_script.js"></script>
+<script>
+        const requestpython = (selected_dataset,selected_embed,tweets_column,labels_column
+            ,test_size,num_epochs,lang_selected,cleaning_words) => {
+          const params = new URLSearchParams();
+          params.append('selected_dataset', selected_dataset)
+          params.append('selected_embed', selected_embed)
+          params.append('tweets_column', tweets_column)
+          params.append('labels_column', labels_column)
+          params.append('test_size', test_size)
+          params.append('num_epochs', num_epochs)
+          params.append('lang_selected', lang_selected)
+          params.append('cleaning_words', cleaning_words)
+
+
+          return fetch('http://localhost:5000/getdata?' + params.toString(), {
+              method: 'GET',
+          });
+        }
+        </script>
+<style>
+      body {
+    margin: 0;
+    background-image: url("images/back_ml.jpg");
+    background-size: cover;
+  }
+  .loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+  p,span{
+      color:white;
+      font-weight: bold;
+  }
+a {
+    text-decoration: none;
+  display: block;
+  padding: 8px 16px;
+  text-align:left;
+  width: 6vw;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #5180c7;
+  color: black;
+}
+#train_info{
+    visibility: hidden;
+}
+label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+}
+</style>
+<a href="index.html" class="previous">&laquo; Previous</a>
+</head>
+    </body>
+    <div id="training" style="text-align: center; display: none">
+            <p>In the process of training</p>
+            <div class="loader"></div>
+            <p>this may take a while, once it's finished you will see the accuracy score and redirected to the homepage</p>
+        </div>
+    <div id="container" style="text-align: center;display: block">
+            <div style="width: 500px; margin: 0 auto;">
+            <p>Please enter the dataset file name in server folder</p>
+            <input type="textbox" name="dataset-select" value="Isis_dataset.csv"/>
+            <p>Please select the embedding dimension of glove:</p>
+            <select id="embed-select">
+                    <option value="300">300d</option>
+                    <option value="200">200d</option>
+                    <option value="300">100d</option>
+                    <option value="200">50d</option>
+            </select>
+            <br/>
+            <span>PLease enter name of the texts column:</span>
+            <input type="textbox" name="tweets-column" value="tweets"/>
+            <br/>
+            <span>PLease enter name of the targets column:</span>
+            <input type="textbox" name="labels-column" value="fanboy"/>
+            <br/>
+               <span>PLease enter the test size (from 0 to 0.99):</span>
+            <input type="number" step="0.01" min="0" max="0.99" name="test-size" value="0.2"/>
+            <br/>
+            <span>PLease enter the number of epochs for training:</span>
+            <input type="number" name="num-epochs" value="100"/>
+            <br/>
+            <span>PLease enter the languages (comma ',' separated):</span>
+            <input type="textbox" placeholder="ex. en,es,fr,ar" name="languages-selected" value="en"/>
+            <br/>
+            <span>PLease enter the cleaning words (comma ',' separated):</span>
+            <input type="textbox" name="cleaning-words" placeholder="ex. word1,word2,word3"value="RT,rt,http,https,www,WWW,al,twitter,co,com,html,unsupportedbrowser"/>
+            <br/>
+            <button id="submit-data" onclick="rq_server()">submit</button>
+            </div>
+          </div>
+        </body>
+        <script>
+            
+        function rq_server(){
+        var selected_dataset = $("#dataset-select").val();
+        var selected_embed = $("#embed-select").val();
+        var tweets_column = $('input[name=tweets-column]').val();
+        var labels_column = $('input[name=labels-column]').val();
+        var test_size = parseFloat($('input[name=test-size]').val());
+        var num_epochs = parseInt($('input[name=num-epochs]').val());
+        var lang_selected = $('input[name=languages-selected]').val().split(',');
+        var cleaning_words = $('input[name=cleaning-words]').val().split(',');
+        
+            $('#container').css('display', 'none');
+            $('#training').css('display', 'block');
+            requestpython(selected_dataset,selected_embed,tweets_column,labels_column
+            ,test_size,num_epochs,lang_selected,cleaning_words).then( (response) => {
+            response.json().then(responseJson => {
+                alert("Acurracy score is: "+responseJson)
+                window.location.href = "index.html"
+                })
+            });
+         }
+        </script>
+<!-- <link rel="stylesheet" href="styles/bootstrap.min.css"> -->
+</html>

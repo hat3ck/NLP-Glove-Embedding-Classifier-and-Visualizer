@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Word Cloud</title>
+    <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
+    <!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
+    <script src="papaparse.min.js"></script>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="jquery-ui.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="d3.js" charset="utf-8"></script>
+    <!-- <script src="http://d3js.org/d3.v5.js"></script> -->
+    <script src="d3.layout.cloud.js"></script>
+    <!-- <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script> -->
+    <script src="example.words.js"></script>
+<script>var words=(words_to_show(110))</script>
+    <script src="d3.wordcloud.js"></script>
+
+  <style>
+  .label-background-strong {
+  fill: lightblue;
+  fill-opacity: .8;
+}
+h1{
+  font-weight : bold;
+  font-family: ;
+}
+dl
+{
+  width: 200px;
+  background: #fff;
+  border: 1px solid #000;
+  padding: 5px 15px;
+}
+
+dt, dd
+{
+  display: inline;
+}
+body {
+  margin: 0;
+  background-image: url("images/gradient.jpg");
+  background-size: cover;
+}
+a {
+  text-decoration: none;
+  display: block;
+  padding: 8px 16px;
+  text-align:left;
+  width: 8vw;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #5180c7;
+  color: black;
+}
+  </style>
+  <a href="index.html" class="previous">&laquo; Previous</a>
+  </head>
+  <body style="text-align: center">
+    <h1 font='Times'>Word Cloud</h1>
+    <div id='wordcloud'></div>
+
+    <script>
+      create_vis(words);
+    </script>
+    <p>please enter the number of words to show (max=100)</p>
+    <input placeholder="100" id="words_num" type="text" name="number_of_words" value="">
+    <button onclick="clicked()" class="btn btn-primary">SUbmit</button>
+
+    <!-- Make Legend for classes -->
+    <dl>
+    <dt style="color:blue;">[blue]</dt>
+    <dd style="color:blue;"> - Related </dd>
+    <br/>
+    <dt style="color:red;">[red]</dt>
+    <dd style="color:red;"> - Fanboy </dd>
+  </dl>
+  </body>
+  <script src="alertify.js"></script>
+  <link rel="stylesheet" href="alertify.core.css" />
+  <link rel="stylesheet" href="alertify.default.css" />
+
+</html>

@@ -5,4 +5,15 @@ The word cloud also includes a hovering option which reports the number of occur
 Currently this framework, works with only binary classification text data but with some small changes it could be used for the multi-class classification as well. 
 As, a sample Kaggle Isis dataset has been used to illustrate the results.
 To use this framework for any other dataset you need to upload the dataset in .csv format inside the server folder and specify the name of the dataset, text column and targets column. You also have the option to choose the test size, epochs for embeddings, language for your tweets(see the langdetect package resources for details of each language's acronym), and the words that you want to exclude from the text (cleaning words).  
-Information about how to run the program can be found in readme file
+Information about how to run the program can be found below:
+
+
+To run this program first you will need to install the packages
+Also, at least 4 GB of space is required to download word embeddings
+
+
+
+To use the application:
+1- run flask server on backend/app.py with python3 => python3 server/app.py
+2- run a simple http_server on main folder => python3 -m http.server
+3- open frontend/index.html in a browser => http_server:port_number/frontend/index.html
